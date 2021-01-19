@@ -70,21 +70,56 @@ def to_camel_case(underscore_str):
             "alreadyCamel"
     """
     camelcase_str = ""
-    temp_str=underscore_str.strip('_')
-    temp_str='_'+temp_str
-    flag=False
-    for char in temp_str:
-        if char=='_':
-            flag=True
-            continue
-        elif flag:
-            if char=='_':
-                continue
+    words=underscore_str.split('_')
+    for word in words:
+        if len(camelcase_str)==0:
+            if len(words)!=1:
+                camelcase_str+=word.lower()
             else:
-                flag=False
-                camelcase_str+=char.upper()
+                camelcase_str=word
         else:
-            camelcase_str+=char
-    if len(camelcase_str)!=0:
-        camelcase_str[0]=camelcase_str[0].lower()
+            if len(word)!=0:
+                camelcase_str+=word[0].upper()
+            if len(word)>1:
+                camelcase_str+=word[1:].lower()
     return camelcase_str
+
+test_str = "to_camel_case"
+pred = to_camel_case(test_str)
+print(pred, "toCamelCase")
+
+test_str = "__EXAMPLE__NAME__"
+pred = to_camel_case(test_str)
+print(pred, "exampleName")
+
+test_str = "alreadyCamel"
+pred = to_camel_case(test_str)
+print(pred, "alreadyCamel")
+
+test_str = "_______"
+pred = to_camel_case(test_str)
+print(pred, "")
+
+test_str = ""
+pred = to_camel_case(test_str)
+print(pred, "")
+
+test_str = "not_Camel_Yet"
+pred = to_camel_case(test_str)
+print(pred, "notCamelYet")
+
+test_str = "NOT_CAMEL_Yet"
+pred = to_camel_case(test_str)
+print(pred, "notCamelYet")
+
+test_str = "abc_def_ghi"
+pred = to_camel_case(test_str)
+print(pred, "abcDefGhi")
+
+test_str = "     "
+pred = to_camel_case(test_str)
+print(pred, "     ")
+
+test_str = "....."
+pred = to_camel_case(test_str)
+print(pred, ".....")
